@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Query {{ q.ticket_id }}{% endblock %}
+{% block content %}
+<div class="card">
+  <a href="{{ url_for('dashboard') }}">&larr; Back to dashboard</a>
+  <h1>{{ q.subject }}</h1>
+  <p class="meta">From <b>{{ q.name }}</b> ({{ q.email }}) &middot; Sentiment: {{ q.sentiment }}</p>
+  {% include "_ticket.html" %}
+</div>
+<div class="card">
+  <h2>Respond / Update</h2>
+  <form method="post">
+    <label for="status">Status</label>
+    <select id="status" name="status">
+      {% for s in statuses %}<option {{ 'selected' if q.status == s }}>{{ s }}</option>{% endfor %}
+    </select>
+    <label for="agent_reply">Agent reply</label>
+    <textarea id="agent_reply" name="agent_reply">{{ q.agent_reply or '' }}</textarea>
+    <button type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Query Submitted{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Query received &#10003;</h1>
+  <p class="meta">Save your ticket ID to track progress: <b>{{ q.ticket_id }}</b></p>
+  {% include "_ticket.html" %}
+  <a class="btn secondary" href="{{ url_for('submit') }}">Submit another</a>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+<p class="meta">Ticket <b>{{ q.ticket_id }}</b> &middot; {{ q.created_at }}</p>
+<p>
+  <span class="badge {{ q.status }}">{{ q.status }}</span>
+  <span class="badge {{ q.priority }}">{{ q.priority }} priority</span>
+  <span class="badge">{{ q.category }}</span>
+</p>
+<h3>{{ q.subject }}</h3>
+<p>{{ q.message }}</p>
+{% if q.auto_reply %}
+  <div class="reply"><b>Automated reply:</b><br>{{ q.auto_reply }}</div>
+{% endif %}
+{% if q.agent_reply %}
+  <div class="reply"><b>Support agent reply:</b><br>{{ q.agent_reply }}</div>
+{% endif %}
+{% if not q.auto_reply and not q.agent_reply %}
+  <div class="reply">Thanks! Your query has been forwarded to our support team. We will respond shortly.</div>
+{% endif %}

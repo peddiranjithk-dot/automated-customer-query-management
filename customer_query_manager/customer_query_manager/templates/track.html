@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Track Ticket{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Track Your Ticket</h1>
+  <form method="post">
+    <label for="ticket_id">Ticket ID</label>
+    <input id="ticket_id" name="ticket_id" placeholder="e.g. TKT-202611-00001" required>
+    <button type="submit">Check Status</button>
+  </form>
+</div>
+{% if q %}
+<div class="card">{% include "_ticket.html" %}</div>
+{% endif %}
+{% endblock %}

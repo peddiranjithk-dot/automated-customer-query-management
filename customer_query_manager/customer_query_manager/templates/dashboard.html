@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="grid" style="margin-bottom:20px">
+  <div class="stat"><b>{{ stats.total }}</b><span>Total queries</span></div>
+  <div class="stat"><b>{{ stats.by_status.get('Open', 0) }}</b><span>Open</span></div>
+  <div class="stat"><b>{{ stats.by_status.get('In Progress', 0) }}</b><span>In progress</span></div>
+  <div class="stat"><b>{{ stats.by_status.get('Resolved', 0) + stats.by_status.get('Closed', 0) }}</b><span>Resolved / Closed</span></div>
+  <div class="stat"><b>{{ stats.auto_rate }}%</b><span>Auto-resolved</span></div>
+</div>
+
+<div class="card">
+  <form method="get" class="filters">
+    <input name="search" placeholder="Search ticket, email, text" value="{{ f.search }}">
+    <select name="status">
+      <option value="">All statuses</option>
+      {% for s in statuses %}<option {{ 'selected' if f.status == s }}>{{ s }}</option>{% endfor %}
+    </select>
+    <select name="category">
+      <option value="">All categories</option>
+      {% for c in categories %}<option {{ 'selected' if f.category == c }}>{{ c }}</option>{% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+  </form>
+</div>
+
+<div class="card" style="overflow-x:auto">
+  <table>
+    <tr><th>Ticket</th><th>Customer</th><th>Subject</th><th>Category</th><th>Priority</th><th>Status</th><th></th></tr>
+    {% for q in queries %}
+    <tr>
+      <td>{{ q.ticket_id }}</td>
+      <td>{{ q.name }}</td>
+      <td>{{ q.subject }}</td>
+      <td>{{ q.category }}</td>
+      <td><span class="badge {{ q.priority }}">{{ q.priority }}</span></td>
+      <td><span class="badge {{ q.status }}">{{ q.status }}</span></td>
+      <td><a href="{{ url_for('query_detail', qid=q.id) }}">Open</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7" class="meta">No queries found.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

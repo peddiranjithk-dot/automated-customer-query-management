@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card hero">
+  <h1>Automated Customer Query Management</h1>
+  <p class="meta">Submit your question and get an instant answer. Queries are automatically
+     categorised, prioritised and routed to our support team when needed.</p>
+  <a class="btn" href="{{ url_for('submit') }}">Submit a Query</a>
+  <a class="btn secondary" href="{{ url_for('track') }}">Track a Ticket</a>
+</div>
+<div class="grid">
+  <div class="stat"><b>1</b><span>Submit your query</span></div>
+  <div class="stat"><b>2</b><span>Auto-categorised &amp; prioritised</span></div>
+  <div class="stat"><b>3</b><span>Instant FAQ reply or agent follow-up</span></div>
+</div>
+{% endblock %}
